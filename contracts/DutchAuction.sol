@@ -33,9 +33,10 @@ contract DutchAuction {
     event BidPlaced(uint256 indexed itemId, address indexed bidder, uint256 amount);
     event ItemSold(uint256 indexed itemId, address indexed seller, address indexed buyer, uint256 amount);
 
+    uint itemCounter = 0;
     // Function to enroll a new item for auction
     function enrollItem(string memory _name, uint256 _startingPrice, uint _bidStartTime) public {
-        uint256 itemId = uint256(keccak256(abi.encodePacked(msg.sender, _name, block.timestamp))); // generate unique ID for the item
+        uint256 itemId = itemCounter + 1; // generate unique ID for the item
         require(!items[itemId].sold, "Item already sold"); // check if the item has already been sold
         // TODO check if the owner is trying to enroll the item
 
