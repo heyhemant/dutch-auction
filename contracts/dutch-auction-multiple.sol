@@ -28,7 +28,7 @@ contract DutchAuction {
         require(members[_itemId][msg.sender], "Only members can access this function");
         _;
     }
-    // TODO not to induct owner
+
     function inductMember(uint _itemId) public {
         require(msg.sender != items[_itemId].seller, "Seller cannot participate in auction.");
         require(block.timestamp < items[_itemId].regTime, "Reg Time is over");
@@ -61,20 +61,23 @@ contract DutchAuction {
     }
 
     function closeBid(uint256 itemId) private{
+        if(items[itemId].bidWinner == address(0)){
+            //emit
+        }
+        else{
+            //emit
+        }
         delete (items[itemId]);
     }
-    //TODO check why input is not allowed
+   
     function getPrice(uint256 itemId) public returns (uint256){
+        require(items[itemId].seller != address(0), "Item does not exists");
         require(block.timestamp >= items[itemId].auctionEndTime || items[itemId].noOfMembers == items[itemId].noOfBidders , "Secret bidding is not over yet") ;
         uint256 timeElapsed = block.timestamp - items[itemId].auctionStartTime;
         uint256 discount = items[itemId].reductionRate * timeElapsed;
-        // incase bidding is closed what to do
-        if(items[itemId].bidWinner != address(0)){
-            return 0;
-        }
         if((items[itemId].startPrice - discount) < items[itemId].reservePrice ){
-             closeBid(itemId);
-            return 0;
+            closeBid(itemId);
+            return items[itemId].reservePrice;
         }
         return items[itemId].startPrice - discount;
     }
@@ -95,13 +98,14 @@ contract DutchAuction {
 
     function buy(uint256 itemId) public payable {
         require(items[itemId].bidWinner == address(0), "Item is already sold");
-        require(items[itemId].seller != address(0), "Auction ended for this item");
+        require(items[itemId].seller != address(0), "Item does not exist");
         uint price = getPrice(itemId);
         require(price <= msg.value, "unable to buy lack of funds");
         deposit();
         address payable seller = payable(items[itemId].seller);
         seller.transfer(price);
         items[itemId].bidWinner = msg.sender;
+        //emit
         // transfer remaining value from contract to winner
         payable(msg.sender).transfer(address(this).balance);
     }
