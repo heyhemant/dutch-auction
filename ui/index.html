@@ -1,0 +1,98 @@
+<html>
+
+<head>
+    <title>Dutch Auction App</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="js/auction.js"></script>
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"
+        type="application/javascript"></script>
+    <!-- Minified -->
+    
+    <meta name="description" content="Dutch Auction App">
+    <meta name="keywords" content="Dutch Auction App">
+
+    <!-- Mobile viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css"
+        integrity="sha512-xX2rYBFJSj86W54Fyv1de80DWBq7zYLn2z0I9bIhQG+rxIF6XVJUpdGnsNHWRa6AvP89vtFupEPDP8eZAtu9qA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- CSS-->
+    <!-- Google web fonts. You can get your own bundle at http://www.google.com/fonts. Don't forget to update the CSS accordingly!-->
+    <link href='http://fonts.googleapis.com/css?family=Droid+Serif|Ubuntu' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="js/flexslider/flexslider.css">
+    <link rel="stylesheet" href="css/basic-style.css">
+
+    <!-- end CSS-->
+
+    <!-- JS-->
+    <script src="js/libs/modernizr-2.6.2.min.js"></script>
+
+</head>
+
+<body>
+    <header class="wrapper clearfix">
+
+        <div id="banner">
+           <h2> Dutch Auction App Demo</h2>
+        </div>
+
+    </header><!-- end header -->
+ 
+
+
+    <div style="margin-left: 5%;">
+        <section id="content">
+
+            <button id="connect">connect wallet </button><br /><br />            
+            <hr />
+
+            <h3>Enroll Yourself for the Auction</h3>
+
+            <!-- <input id="voter_wallet" placeholder="Voter wallet Address"><br /> -->
+
+            <button id="enroll">Enroll Me</button><br /><br />
+            <hr />
+            
+            <h3>ADD ITEM</h3>
+            <input id="reservePrice" placeholder="Enter Reserve Price"><br />
+            <!-- <input id="startPrice" placeholder="Enter Start Price"><br /> -->
+            <input id="auctionDuration" placeholder="Auction Duration"><br />
+            <input id="reductionRate" placeholder="Reduction Rate"><br />
+            <button id="create_item">Add ITEM</button><br /><br />
+            <hr />
+
+
+            <h3>Get Number of members for the Secret Bidding </h3>
+            <button id="get_members">get Count of Members</button><br /><br />
+            <hr />
+
+            <h3>Place Bid for the Item Listed </h3>
+            <input id="secret_bid_amount" placeholder="Enter Your Bid"><br />
+            <button id="place_bid">Place your Bid</button><br /><br />
+            <hr />
+
+            <h3>Update Item After Secret Bidding</h3> 
+            <input id="extra_amount" placeholder="Enter amount to be added"><br />
+            <button id="update_price">update</button><br /><br />
+            <hr />
+
+
+            <h3>Get Item Price</h3> 
+            <button id="get_price">Get Price</button><br /><br />
+            <hr />
+
+            <h3>Buy Item</h3> 
+            <input id="amount" placeholder="Enter amount to buy"><br />
+            <button id="buy">Buy Item</button><br /><br />
+            <hr />
+        </section>
+    </div>
+    <footer>
+    </footer><!-- #end footer area -->
+</body>
+
+</html>
