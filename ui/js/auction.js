@@ -6,8 +6,8 @@ $(document).ready(function () {
 
 		provider = new ethers.providers.Web3Provider(window.ethereum)	
 		signer = provider.getSigner();
-		let contractAddress = "0xb1f86B01e02c388E720551a7e340be448F246093";
-		let abi =[
+		let contractAddress = "0x71faEB5e8FA61a51F572aE7763dB81d75bf00364";
+		let abi = [
 			{
 				"anonymous": false,
 				"inputs": [
@@ -72,6 +72,106 @@ $(document).ready(function () {
 				"type": "event"
 			},
 			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "itemId",
+						"type": "uint256"
+					}
+				],
+				"name": "CloseBid",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "itemId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "reservePrice",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "startPrice",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "auctionEndTime",
+						"type": "uint256"
+					}
+				],
+				"name": "ItemCreated",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "itemId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "bidder",
+						"type": "address"
+					}
+				],
+				"name": "SecretBidPlaced",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "itemId",
+						"type": "uint256"
+					}
+				],
+				"name": "SecretbiddingCompleted",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "bidders",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -127,6 +227,25 @@ $(document).ready(function () {
 						"type": "uint256"
 					}
 				],
+				"name": "getNoOfMembers",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "itemId",
+						"type": "uint256"
+					}
+				],
 				"name": "getPrice",
 				"outputs": [
 					{
@@ -135,7 +254,7 @@ $(document).ready(function () {
 						"type": "uint256"
 					}
 				],
-				"stateMutability": "nonpayable",
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -149,154 +268,6 @@ $(document).ready(function () {
 				"name": "inductMember",
 				"outputs": [],
 				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "itemId",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "reservePrice",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "startPrice",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "auctionEndTime",
-						"type": "uint256"
-					}
-				],
-				"name": "ItemCreated",
-				"type": "event"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "itemId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "secretBid",
-						"type": "uint256"
-					}
-				],
-				"name": "placeSecretBid",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "itemId",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "address",
-						"name": "bidder",
-						"type": "address"
-					}
-				],
-				"name": "SecretBidPlaced",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "itemId",
-						"type": "uint256"
-					}
-				],
-				"name": "SecretbiddingCompleted",
-				"type": "event"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "itemId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "extraPrice",
-						"type": "uint256"
-					}
-				],
-				"name": "startBidding",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"name": "bidders",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "itemId",
-						"type": "uint256"
-					}
-				],
-				"name": "getNoOfMembers",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -390,6 +361,48 @@ $(document).ready(function () {
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "itemId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "secretBid",
+						"type": "uint256"
+					}
+				],
+				"name": "placeSecretBid",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "itemId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "extraPrice",
+						"type": "uint256"
+					}
+				],
+				"name": "startBidding",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			}
 		];
@@ -511,24 +524,17 @@ $(document).ready(function () {
 
 			$("#get_price").click(async function async() {
 				let itemId = $('#itemID_get_price').val();
-				let tx = await contract.items(itemId);
+				let tx = await contract.getPrice(itemId);
 				console.log(tx);
-				// count = ethers.utils.arrayify( tx._hex )[0];
-				// console.log(count ); 
-			    // $("#get_price").text("current Price " + count);
+				count = BigInt(tx._hex).toString();
+				console.log(count ); 
+			    $("#get_price").text("current Price " + count);
 			});
 
 			$("#buy").click(async function async() {
 				let amount = $('#amount').val();
-				let tx = await contract.buy(0,{value:amount} );
+				let itemId = $('#buy_itemId').val();
+				let tx = await contract.buy(itemId,{value:amount} );
 				console.log(tx)
 			});
-
-
-
-
-});
-
-document.addEventListener('SecretBidPlaced', function (event) {
-	console.log(event.detail);
 });
