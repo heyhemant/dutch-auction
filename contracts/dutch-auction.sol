@@ -40,7 +40,15 @@ contract DutchAuctionContract{
         _;
     }
 
+    modifier onlyOwner(uint _itemId){
+        require(items[_itemId].seller == msg.sender, "Only Owner can access this function");
+        _;
+    }
 
+    modifier onlyBidder(uint _itemId){
+        require (bidders[_itemId][msg.sender], "Only bidders can access this function");
+        _;
+    }
     /**
      * @dev Allow users to enroll themselves in the auction for a certain item.
      * @param _itemId the id of the Item for which user is enrolling.
@@ -127,7 +135,8 @@ contract DutchAuctionContract{
      * @param extraPrice the extra amount that the user wants to add in the auction starting price
      * @return the starting price of the item.
      */
-    function startBidding(uint256 itemId, uint256 extraPrice)  public returns (uint256) {
+
+    function startBidding(uint256 itemId, uint256 extraPrice)  public onlyOwner(itemId) returns (uint256) {
         require(block.timestamp >= items[itemId].auctionEndTime || items[itemId].noOfMembers == items[itemId].noOfBidders, "Secret bidding is not over yet");
         if (items[itemId].highestBid >= items[itemId].reservePrice) {
             items[itemId].startPrice = items[itemId].highestBid + extraPrice ;
@@ -149,7 +158,7 @@ contract DutchAuctionContract{
      * @dev Allow participant to buy a item from the auction, first the amount is transferred to contract and contract is trasfering it to the seller.
      * @param itemId the item for user wants to buy from auction.
      */
-    function buy(uint256 itemId) public payable {
+    function buy(uint256 itemId) public onlyBidder(itemId) payable {
         require(items[itemId].bidWinner == address(0), "Item is already sold");
         require(items[itemId].seller != address(0), "Item does not exist");
         uint price = getPrice(itemId);

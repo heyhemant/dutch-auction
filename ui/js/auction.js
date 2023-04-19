@@ -428,28 +428,22 @@ $(document).ready(function () {
 	
 	const checkEvents = async()=>{
 		contract.on("ItemCreated",(itemID, reservePrice,startPrice, auctionEndTime)=>{
-			//console.log("event aaya", itemId, secretBid)
-			alert("Yay!! Bid Placed")
+			alert("Item ("+itemID+") created");
 		})
 		contract.on("AuctionStarted",(itemId,startPrice)=>{
-			// console.log("event aaya", itemCount, reservePrice)
-			// alert("Yay!! Auction Comp0leted ", reservePrice)
+			alert("Yay!! Auction Started ", reservePrice);
 		})
 		contract.on("SecretBidPlaced",(itemID, bidder)=>{
-			//console.log("event aaya", itemId, secretBid)
-			//alert("Yay!! Bid Placed")
+			alert("Secret Bid Placed");
 		})
 		contract.on("SecretbiddingCompleted",(itemID)=>{
-			//console.log("event aaya", itemId, secretBid)
-			alert("Yay!! Bid Placed")
+			alert("Secret Biddinng Completed, good to start auction")
 		})
 		contract.on("AuctionCompleted",(itemID, winner)=>{
-			//console.log("event aaya", itemId, secretBid)
-			alert("Yay!! Bid Placed")
+			alert("Auction is closed");
 		})
 		contract.on("BidPlaced",(itemID, sellingPrice, bidder)=>{
-			//console.log("event aaya", itemId, secretBid)
-			alert("Yay!! Bid Placed")
+			alert("Yay!! Bid Placed");
 		})
 	};
 
@@ -457,7 +451,6 @@ $(document).ready(function () {
 		initConnect();
 		await provider.send("eth_requestAccounts", []);
 		signer = provider.getSigner()
-		console.log(signer);
 		$("#connect").text(await signer.getAddress());
 	});
 
@@ -474,8 +467,7 @@ $(document).ready(function () {
 	$("#enroll").click(async function async() {
 		console.log("add User")
 			let itemId = $('#enrollForItem').val();
-			let tx = await contract.inductMember(itemId);
-			console.log(tx)
+			await contract.inductMember(itemId);
 		});
 
 	$("#get_members").click(async function async() {
@@ -484,15 +476,8 @@ $(document).ready(function () {
 			let tx = await contract.getNoOfMembers(itemId);
 			let count = ethers.utils.arrayify( tx._hex )[0];
 			$("#get_members").text("Number of members enrolled " + count);
-			console.log(count)
 		});
 	
-	// $("#enroll").click(async function async() {
-	// console.log("add User")
-	// 	// let name = $('#voter_wallet').val();
-	// 	let tx = await contract.inductMember();
-	// 	console.log(tx)
-	// });
 
 	$("#create_item").click(async function async() {
 		console.log("yaha aaya")
@@ -500,15 +485,14 @@ $(document).ready(function () {
 			let regTime = $('#regtime').val();
 			let auctionDuration = $('#auctionDuration').val();
 			let reductionRate = $('#reductionRate').val();
-			let tx = await contract.createItem(reservePrice, reductionRate, auctionDuration, regTime);
-			console.log(tx)
+			await contract.createItem(reservePrice, reductionRate, auctionDuration, regTime);
+			checkEvents();
 		});
 
 	$("#place_bid").click(async function async() {
 			let secretBid = $('#secret_bid_amount').val();
 			let itemId = $('#itemId_for_bid').val();
-			let tx = await contract.placeSecretBid(itemId,secretBid);
-			console.log(tx)
+			await contract.placeSecretBid(itemId,secretBid);
 			checkEvents();
 		});
 
@@ -517,24 +501,21 @@ $(document).ready(function () {
 		$("#start_auction").click(async function async() {
 			let amountTobeAdded = $('#extra_amount').val();
 			let itemId = $('#itemId_for_start_auction').val();
-			let tx = await contract.startBidding(itemId,amountTobeAdded);
-			console.log(tx);
+		    await contract.startBidding(itemId,amountTobeAdded);
 			checkEvents();
 			});
 
 			$("#get_price").click(async function async() {
 				let itemId = $('#itemID_get_price').val();
 				let tx = await contract.getPrice(itemId);
-				console.log(tx);
 				count = BigInt(tx._hex).toString();
-				console.log(count ); 
 			    $("#get_price").text("current Price " + count);
 			});
 
 			$("#buy").click(async function async() {
 				let amount = $('#amount').val();
 				let itemId = $('#buy_itemId').val();
-				let tx = await contract.buy(itemId,{value:amount} );
-				console.log(tx)
+				await contract.buy(itemId,{value:amount} );
+				checkEvents();
 			});
 });
