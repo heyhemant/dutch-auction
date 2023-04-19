@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-
+import 'hardhat/console.sol';
 /**
  * @title Dutch Auction Contract
  * @dev Allows users to auction there items in a decentralized environment, in the dutch auction format
@@ -30,7 +30,7 @@ contract DutchAuctionContract{
     event SecretbiddingCompleted(uint itemId);
     event AuctionCompleted(uint256 itemId, address winner);
     event BidPlaced(uint256 itemId, uint256 sellingPrice, address bidder);
-
+    event CloseBid(uint itemId);
     /**
      * @dev Modifier to ensure only participants can access certain features.
      * @param _itemId the id of the Item for which we are validating.
@@ -87,6 +87,10 @@ contract DutchAuctionContract{
         }
     }
 
+    function getNoOfMembers(uint256 itemId) public view returns(uint256){
+        return items[itemId].noOfMembers;
+    }
+
     /**
      * @dev Used to close the auction for a perticular item after a certain condition is met.
      * @param itemId the item for which we need to close the auction.
@@ -101,15 +105,19 @@ contract DutchAuctionContract{
      * @param itemId the item for which user wants to get price of.
      * @return price of the particular item at the current time.
      */
-    function getPrice(uint256 itemId) public returns (uint256){
+    function getPrice(uint256 itemId) public view returns (uint256){
         require(items[itemId].seller != address(0), "Item does not exists");
-        require(block.timestamp >= items[itemId].auctionEndTime || items[itemId].noOfMembers == items[itemId].noOfBidders , "Secret bidding is not over yet") ;
+        require(block.timestamp >= items[itemId].regTime,"Auction not started yet");
+        require(block.timestamp >= items[itemId].auctionEndTime || 
+            (items[itemId].noOfMembers == items[itemId].noOfBidders) , 
+            "Secret bidding is not over yet") ;
+
         uint256 timeElapsed = block.timestamp - items[itemId].auctionStartTime;
         uint256 discount = items[itemId].reductionRate * timeElapsed;
-        if((items[itemId].startPrice - discount) < items[itemId].reservePrice ){
-            closeBid(itemId);
-            return items[itemId].reservePrice;
-        }
+        require((items[itemId].startPrice > discount) || 
+            ((items[itemId].startPrice - discount) > items[itemId].reservePrice),
+               "Please close the bid");
+       
         return items[itemId].startPrice - discount;
     }
 
@@ -148,9 +156,7 @@ contract DutchAuctionContract{
         require(price <= msg.value, "unable to buy lack of funds");
         deposit();
         address payable seller = payable(items[itemId].seller);
-        seller.transfer(price);
-        items[itemId].bidWinner = msg.sender;
-        payable(msg.sender).transfer(address(this).balance);
+        seller.transfer(msg.value);
         emit BidPlaced(itemId, price, items[itemId].bidWinner);
     }
 }
