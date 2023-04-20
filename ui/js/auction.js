@@ -1,17 +1,15 @@
-$(document).ready(function () {	
-	
+$(document).ready(function () {
+
 	let contract;
 	let provider;
 	async function initConnect() {
 
-		provider = new ethers.providers.Web3Provider(window.ethereum)	
+		provider = new ethers.providers.Web3Provider(window.ethereum)
 		signer = provider.getSigner();
-		let contractAddress = "0x71faEB5e8FA61a51F572aE7763dB81d75bf00364";
-		let abi = [
-			{
+		let contractAddress = "0x9426c0D67D3a9C04F17Bc645844B78804711aE02";
+		let abi = [{
 				"anonymous": false,
-				"inputs": [
-					{
+				"inputs": [{
 						"indexed": false,
 						"internalType": "uint256",
 						"name": "itemId",
@@ -29,8 +27,7 @@ $(document).ready(function () {
 			},
 			{
 				"anonymous": false,
-				"inputs": [
-					{
+				"inputs": [{
 						"indexed": false,
 						"internalType": "uint256",
 						"name": "itemId",
@@ -48,8 +45,7 @@ $(document).ready(function () {
 			},
 			{
 				"anonymous": false,
-				"inputs": [
-					{
+				"inputs": [{
 						"indexed": false,
 						"internalType": "uint256",
 						"name": "itemId",
@@ -72,121 +68,29 @@ $(document).ready(function () {
 				"type": "event"
 			},
 			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "itemId",
-						"type": "uint256"
-					}
-				],
-				"name": "CloseBid",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "itemId",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "reservePrice",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "startPrice",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "auctionEndTime",
-						"type": "uint256"
-					}
-				],
-				"name": "ItemCreated",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "itemId",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "address",
-						"name": "bidder",
-						"type": "address"
-					}
-				],
-				"name": "SecretBidPlaced",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "itemId",
-						"type": "uint256"
-					}
-				],
-				"name": "SecretbiddingCompleted",
-				"type": "event"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"name": "bidders",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "itemId",
-						"type": "uint256"
-					}
-				],
+				"inputs": [{
+					"internalType": "uint256",
+					"name": "itemId",
+					"type": "uint256"
+				}],
 				"name": "buy",
 				"outputs": [],
 				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
+				"anonymous": false,
+				"inputs": [{
+					"indexed": false,
+					"internalType": "uint256",
+					"name": "itemId",
+					"type": "uint256"
+				}],
+				"name": "CloseBid",
+				"type": "event"
+			},
+			{
+				"inputs": [{
 						"internalType": "uint256",
 						"name": "reservePrice",
 						"type": "uint256"
@@ -220,67 +124,172 @@ $(document).ready(function () {
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "itemId",
-						"type": "uint256"
-					}
-				],
-				"name": "getNoOfMembers",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "itemId",
-						"type": "uint256"
-					}
-				],
-				"name": "getPrice",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_itemId",
-						"type": "uint256"
-					}
-				],
+				"inputs": [{
+					"internalType": "uint256",
+					"name": "_itemId",
+					"type": "uint256"
+				}],
 				"name": "inductMember",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
+				"anonymous": false,
+				"inputs": [{
+						"indexed": false,
 						"internalType": "uint256",
-						"name": "",
+						"name": "itemId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "reservePrice",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "startPrice",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "auctionEndTime",
 						"type": "uint256"
 					}
 				],
-				"name": "items",
-				"outputs": [
+				"name": "ItemCreated",
+				"type": "event"
+			},
+			{
+				"inputs": [{
+						"internalType": "uint256",
+						"name": "itemId",
+						"type": "uint256"
+					},
 					{
+						"internalType": "uint256",
+						"name": "secretBid",
+						"type": "uint256"
+					}
+				],
+				"name": "placeSecretBid",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"anonymous": false,
+				"inputs": [{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "itemId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "bidder",
+						"type": "address"
+					}
+				],
+				"name": "SecretBidPlaced",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [{
+					"indexed": false,
+					"internalType": "uint256",
+					"name": "itemId",
+					"type": "uint256"
+				}],
+				"name": "SecretbiddingCompleted",
+				"type": "event"
+			},
+			{
+				"inputs": [{
+						"internalType": "uint256",
+						"name": "itemId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "extraPrice",
+						"type": "uint256"
+					}
+				],
+				"name": "startBidding",
+				"outputs": [{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "bidders",
+				"outputs": [{
+					"internalType": "bool",
+					"name": "",
+					"type": "bool"
+				}],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [{
+					"internalType": "uint256",
+					"name": "itemId",
+					"type": "uint256"
+				}],
+				"name": "getNoOfMembers",
+				"outputs": [{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [{
+					"internalType": "uint256",
+					"name": "itemId",
+					"type": "uint256"
+				}],
+				"name": "getPrice",
+				"outputs": [{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [{
+					"internalType": "uint256",
+					"name": "",
+					"type": "uint256"
+				}],
+				"name": "items",
+				"outputs": [{
 						"internalType": "address",
 						"name": "seller",
 						"type": "address"
@@ -340,8 +349,7 @@ $(document).ready(function () {
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
+				"inputs": [{
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
@@ -353,101 +361,57 @@ $(document).ready(function () {
 					}
 				],
 				"name": "members",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
+				"outputs": [{
+					"internalType": "bool",
+					"name": "",
+					"type": "bool"
+				}],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "itemId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "secretBid",
-						"type": "uint256"
-					}
-				],
-				"name": "placeSecretBid",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "itemId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "extraPrice",
-						"type": "uint256"
-					}
-				],
-				"name": "startBidding",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "nonpayable",
 				"type": "function"
 			}
 		];
-		contract = new ethers.Contract( contractAddress , abi , signer );
-		
+		contract = new ethers.Contract(contractAddress, abi, signer);
+
 		//------------------------------------- METAMASK BOILERPPLATE------------------//
-	
+
 		window.ethereum.on('chainChanged', handleChainChanged);
 		window.ethereum.on('accountsChanged', handleAccountsChanged);
 
-		}
+	}
 
-	
+
 	function handleChainChanged(_chainId) {
-	  // We recommend reloading the page, unless you must do otherwise
-	  console.log("changed chain "+_chainId)
+		// We recommend reloading the page, unless you must do otherwise
+		console.log("changed chain " + _chainId)
 	}
-	
+
 	function handleAccountsChanged(accounts) {
-	  // We recommend reloading the page, unless you must do otherwise
-	  console.log("acccount changed "+ accounts)
+		// We recommend reloading the page, unless you must do otherwise
+		console.log("acccount changed " + accounts)
 	}
-	
-	const checkEvents = async()=>{
-		contract.on("ItemCreated",(itemID, reservePrice,startPrice, auctionEndTime)=>{
-			alert("Item ("+itemID+") created");
+
+	const checkEvents = async () => {
+		contract.on("ItemCreated", (itemID, reservePrice, startPrice, auctionEndTime) => {
+			alert("Item (" + itemID + ") created");
 		})
-		contract.on("AuctionStarted",(itemId,startPrice)=>{
+		contract.on("AuctionStarted", (itemId, startPrice) => {
 			alert("Yay!! Auction Started ", reservePrice);
 		})
-		contract.on("SecretBidPlaced",(itemID, bidder)=>{
+		contract.on("SecretBidPlaced", (itemID, bidder) => {
 			alert("Secret Bid Placed");
 		})
-		contract.on("SecretbiddingCompleted",(itemID)=>{
+		contract.on("SecretbiddingCompleted", (itemID) => {
 			alert("Secret Biddinng Completed, good to start auction")
 		})
-		contract.on("AuctionCompleted",(itemID, winner)=>{
+		contract.on("AuctionCompleted", (itemID, winner) => {
 			alert("Auction is closed");
 		})
-		contract.on("BidPlaced",(itemID, sellingPrice, bidder)=>{
+		contract.on("BidPlaced", (itemID, sellingPrice, bidder) => {
 			alert("Yay!! Bid Placed");
 		})
 	};
 
-	$("#connect").click(async function async() {
+	$("#connect").click(async function async () {
 		initConnect();
 		await provider.send("eth_requestAccounts", []);
 		signer = provider.getSigner()
@@ -455,67 +419,112 @@ $(document).ready(function () {
 	});
 
 
-	$("#inductember").click(async function async() {
-		await provider.send("eth_requestAccounts", []);
-		signer = provider.getSigner();
-		let status = await contract
-			.electionStarted()
-		$("#status").text(JSON.stringify(status));
+	// $("#inductember").click(async function async() {
+	// 	await provider.send("eth_requestAccounts", []);
+	// 	signer = provider.getSigner();
+	// 	let status = await contract
+	// 		.electionStarted()
+	// 	$("#status").text(JSON.stringify(status));
 
+	// });
+
+	$("#enroll").click(async function async () {
+		console.log("add User")
+		let itemId = $('#enrollForItem').val();
+		try {
+			await contract.inductMember(itemId);
+			alert("Enrolled Successfully");
+		} catch (e) {
+			if (e.error && e.error.message) {
+				alert(e.error.message)
+			}
+			console.log(e);
+		}
 	});
 
-	$("#enroll").click(async function async() {
+	$("#get_members").click(async function async () {
 		console.log("add User")
-			let itemId = $('#enrollForItem').val();
-			await contract.inductMember(itemId);
-		});
+		let itemId = $('#get_members_itemID').val();
+		let tx = await contract.getNoOfMembers(itemId);
+		let count = ethers.utils.arrayify(tx._hex)[0];
+		$("#get_members").text("Number of members enrolled " + count);
+	});
 
-	$("#get_members").click(async function async() {
-		console.log("add User")
-			let itemId = $('#get_members_itemID').val();
-			let tx = await contract.getNoOfMembers(itemId);
-			let count = ethers.utils.arrayify( tx._hex )[0];
-			$("#get_members").text("Number of members enrolled " + count);
-		});
-	
 
-	$("#create_item").click(async function async() {
+	$("#create_item").click(async function async () {
 		console.log("yaha aaya")
-			let reservePrice = $('#reservePrice').val();
-			let regTime = $('#regtime').val();
-			let auctionDuration = $('#auctionDuration').val();
-			let reductionRate = $('#reductionRate').val();
+		let reservePrice = $('#reservePrice').val();
+		let regTime = $('#regtime').val();
+		let auctionDuration = $('#auctionDuration').val();
+		let reductionRate = $('#reductionRate').val();
+		try {
 			await contract.createItem(reservePrice, reductionRate, auctionDuration, regTime);
 			checkEvents();
-		});
+		} catch (e) {
+			if (e.error && e.error.message) {
+				alert(e.error.message)
+			}
+			console.log(e);
+		}
+	});
 
-	$("#place_bid").click(async function async() {
-			let secretBid = $('#secret_bid_amount').val();
-			let itemId = $('#itemId_for_bid').val();
-			await contract.placeSecretBid(itemId,secretBid);
+	$("#place_bid").click(async function async () {
+		let secretBid = $('#secret_bid_amount').val();
+		let itemId = $('#itemId_for_bid').val();
+		try {
+			await contract.placeSecretBid(itemId, secretBid);
 			checkEvents();
-		});
+		} catch (e) {
+			if (e.error && e.error.message) {
+				alert(e.error.message)
+			}
+			console.log(e);
+		}
+	});
 
 
 
-		$("#start_auction").click(async function async() {
-			let amountTobeAdded = $('#extra_amount').val();
-			let itemId = $('#itemId_for_start_auction').val();
-		    await contract.startBidding(itemId,amountTobeAdded);
+	$("#start_auction").click(async function async () {
+		let amountTobeAdded = $('#extra_amount').val();
+		let itemId = $('#itemId_for_start_auction').val();
+		try {
+			await contract.startBidding(itemId, amountTobeAdded);
 			checkEvents();
-			});
+		} catch (e) {
+			if (e.error && e.error.message) {
+				alert(e.error.message)
+			}
+			console.log(e);
+		}
+	});
 
-			$("#get_price").click(async function async() {
-				let itemId = $('#itemID_get_price').val();
-				let tx = await contract.getPrice(itemId);
-				count = BigInt(tx._hex).toString();
-			    $("#get_price").text("current Price " + count);
-			});
+	$("#get_price").click(async function async () {
+		let itemId = $('#itemID_get_price').val();
+		try {
+			let tx = await contract.getPrice(itemId);
+			count = BigInt(tx._hex).toString();
+			$("#get_price").text("current Price " + count);
+		} catch (e) {
+			if (e.error && e.error.message) {
+				alert(e.error.message)
+			}
+			console.log(e);
+		}
+	});
 
-			$("#buy").click(async function async() {
-				let amount = $('#amount').val();
-				let itemId = $('#buy_itemId').val();
-				await contract.buy(itemId,{value:amount} );
-				checkEvents();
+	$("#buy").click(async function async () {
+		let amount = $('#amount').val();
+		let itemId = $('#buy_itemId').val();
+		try {
+			await contract.buy(itemId, {
+				value: amount
 			});
+			checkEvents();
+		} catch (e) {
+			if (e.error && e.error.message) {
+				alert(e.error.message)
+			}
+			console.log(e);
+		}
+	});
 });
