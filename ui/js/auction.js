@@ -2,11 +2,12 @@ $(document).ready(function () {
 
 	let contract;
 	let provider;
+	const convertToEThValue = 10**18;
 	async function initConnect() {
 
 		provider = new ethers.providers.Web3Provider(window.ethereum)
 		signer = provider.getSigner();
-		let contractAddress = "0x9426c0D67D3a9C04F17Bc645844B78804711aE02";
+		let contractAddress = "0xc042C0cf32106a6fcE65E471Fbe7441Ff251Af39";
 		let abi = [{
 				"anonymous": false,
 				"inputs": [{
@@ -419,15 +420,6 @@ $(document).ready(function () {
 	});
 
 
-	// $("#inductember").click(async function async() {
-	// 	await provider.send("eth_requestAccounts", []);
-	// 	signer = provider.getSigner();
-	// 	let status = await contract
-	// 		.electionStarted()
-	// 	$("#status").text(JSON.stringify(status));
-
-	// });
-
 	$("#enroll").click(async function async () {
 		console.log("add User")
 		let itemId = $('#enrollForItem').val();
@@ -443,7 +435,6 @@ $(document).ready(function () {
 	});
 
 	$("#get_members").click(async function async () {
-		console.log("add User")
 		let itemId = $('#get_members_itemID').val();
 		let tx = await contract.getNoOfMembers(itemId);
 		let count = ethers.utils.arrayify(tx._hex)[0];
@@ -452,11 +443,10 @@ $(document).ready(function () {
 
 
 	$("#create_item").click(async function async () {
-		console.log("yaha aaya")
-		let reservePrice = $('#reservePrice').val();
+		let reservePrice =( $('#reservePrice').val()*convertToEThValue).toString();
 		let regTime = $('#regtime').val();
 		let auctionDuration = $('#auctionDuration').val();
-		let reductionRate = $('#reductionRate').val();
+		let reductionRate = ($('#reductionRate').val()*convertToEThValue).toString();
 		try {
 			await contract.createItem(reservePrice, reductionRate, auctionDuration, regTime);
 			checkEvents();
@@ -469,7 +459,7 @@ $(document).ready(function () {
 	});
 
 	$("#place_bid").click(async function async () {
-		let secretBid = $('#secret_bid_amount').val();
+		let secretBid = ($('#secret_bid_amount').val()*convertToEThValue).toString();
 		let itemId = $('#itemId_for_bid').val();
 		try {
 			await contract.placeSecretBid(itemId, secretBid);
@@ -485,7 +475,7 @@ $(document).ready(function () {
 
 
 	$("#start_auction").click(async function async () {
-		let amountTobeAdded = $('#extra_amount').val();
+		let amountTobeAdded = ($('#extra_amount').val()*convertToEThValue).toString();
 		let itemId = $('#itemId_for_start_auction').val();
 		try {
 			await contract.startBidding(itemId, amountTobeAdded);
@@ -503,7 +493,7 @@ $(document).ready(function () {
 		try {
 			let tx = await contract.getPrice(itemId);
 			count = BigInt(tx._hex).toString();
-			$("#get_price").text("current Price " + count);
+			$("#get_price").text("current Price " + count/convertToEThValue + "ETH");
 		} catch (e) {
 			if (e.error && e.error.message) {
 				alert(e.error.message)
@@ -513,7 +503,7 @@ $(document).ready(function () {
 	});
 
 	$("#buy").click(async function async () {
-		let amount = $('#amount').val();
+		let amount = ($('#amount').val()*convertToEThValue).toString();
 		let itemId = $('#buy_itemId').val();
 		try {
 			await contract.buy(itemId, {

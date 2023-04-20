@@ -122,7 +122,7 @@ contract DutchAuctionContract{
 
         uint256 timeElapsed = block.timestamp - items[itemId].auctionStartTime;
         uint256 discount = items[itemId].reductionRate * timeElapsed;
-        require((items[itemId].startPrice > discount) || 
+        require((items[itemId].startPrice > discount) && 
             ((items[itemId].startPrice - discount) > items[itemId].reservePrice),
                "Please close the bid");
        
