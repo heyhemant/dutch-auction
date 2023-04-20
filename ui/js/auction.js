@@ -7,10 +7,12 @@ $(document).ready(function () {
 
 		provider = new ethers.providers.Web3Provider(window.ethereum)
 		signer = provider.getSigner();
-		let contractAddress = "0xc042C0cf32106a6fcE65E471Fbe7441Ff251Af39";
-		let abi = [{
+		let contractAddress = "0x3374e4B4D330dcC1F9540276781628490a870e93";
+		let abi = [
+			{
 				"anonymous": false,
-				"inputs": [{
+				"inputs": [
+					{
 						"indexed": false,
 						"internalType": "uint256",
 						"name": "itemId",
@@ -28,7 +30,8 @@ $(document).ready(function () {
 			},
 			{
 				"anonymous": false,
-				"inputs": [{
+				"inputs": [
+					{
 						"indexed": false,
 						"internalType": "uint256",
 						"name": "itemId",
@@ -46,7 +49,8 @@ $(document).ready(function () {
 			},
 			{
 				"anonymous": false,
-				"inputs": [{
+				"inputs": [
+					{
 						"indexed": false,
 						"internalType": "uint256",
 						"name": "itemId",
@@ -69,11 +73,13 @@ $(document).ready(function () {
 				"type": "event"
 			},
 			{
-				"inputs": [{
-					"internalType": "uint256",
-					"name": "itemId",
-					"type": "uint256"
-				}],
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "itemId",
+						"type": "uint256"
+					}
+				],
 				"name": "buy",
 				"outputs": [],
 				"stateMutability": "payable",
@@ -81,17 +87,20 @@ $(document).ready(function () {
 			},
 			{
 				"anonymous": false,
-				"inputs": [{
-					"indexed": false,
-					"internalType": "uint256",
-					"name": "itemId",
-					"type": "uint256"
-				}],
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "itemId",
+						"type": "uint256"
+					}
+				],
 				"name": "CloseBid",
 				"type": "event"
 			},
 			{
-				"inputs": [{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "reservePrice",
 						"type": "uint256"
@@ -118,6 +127,29 @@ $(document).ready(function () {
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_email",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_pic",
+						"type": "string"
+					}
+				],
+				"name": "createUser",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "deposit",
 				"outputs": [],
@@ -125,11 +157,13 @@ $(document).ready(function () {
 				"type": "function"
 			},
 			{
-				"inputs": [{
-					"internalType": "uint256",
-					"name": "_itemId",
-					"type": "uint256"
-				}],
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_itemId",
+						"type": "uint256"
+					}
+				],
 				"name": "inductMember",
 				"outputs": [],
 				"stateMutability": "nonpayable",
@@ -137,7 +171,8 @@ $(document).ready(function () {
 			},
 			{
 				"anonymous": false,
-				"inputs": [{
+				"inputs": [
+					{
 						"indexed": false,
 						"internalType": "uint256",
 						"name": "itemId",
@@ -166,7 +201,8 @@ $(document).ready(function () {
 				"type": "event"
 			},
 			{
-				"inputs": [{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "itemId",
 						"type": "uint256"
@@ -184,7 +220,8 @@ $(document).ready(function () {
 			},
 			{
 				"anonymous": false,
-				"inputs": [{
+				"inputs": [
+					{
 						"indexed": false,
 						"internalType": "uint256",
 						"name": "itemId",
@@ -202,17 +239,20 @@ $(document).ready(function () {
 			},
 			{
 				"anonymous": false,
-				"inputs": [{
-					"indexed": false,
-					"internalType": "uint256",
-					"name": "itemId",
-					"type": "uint256"
-				}],
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "itemId",
+						"type": "uint256"
+					}
+				],
 				"name": "SecretbiddingCompleted",
 				"type": "event"
 			},
 			{
-				"inputs": [{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "itemId",
 						"type": "uint256"
@@ -224,16 +264,32 @@ $(document).ready(function () {
 					}
 				],
 				"name": "startBidding",
-				"outputs": [{
-					"internalType": "uint256",
-					"name": "",
-					"type": "uint256"
-				}],
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
 				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
-				"inputs": [{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					}
+				],
+				"name": "UserCreated",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
@@ -245,52 +301,88 @@ $(document).ready(function () {
 					}
 				],
 				"name": "bidders",
-				"outputs": [{
-					"internalType": "bool",
-					"name": "",
-					"type": "bool"
-				}],
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
 				"stateMutability": "view",
 				"type": "function"
 			},
 			{
-				"inputs": [{
-					"internalType": "uint256",
-					"name": "itemId",
-					"type": "uint256"
-				}],
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "itemId",
+						"type": "uint256"
+					}
+				],
 				"name": "getNoOfMembers",
-				"outputs": [{
-					"internalType": "uint256",
-					"name": "",
-					"type": "uint256"
-				}],
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
 				"stateMutability": "view",
 				"type": "function"
 			},
 			{
-				"inputs": [{
-					"internalType": "uint256",
-					"name": "itemId",
-					"type": "uint256"
-				}],
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "itemId",
+						"type": "uint256"
+					}
+				],
 				"name": "getPrice",
-				"outputs": [{
-					"internalType": "uint256",
-					"name": "",
-					"type": "uint256"
-				}],
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
 				"stateMutability": "view",
 				"type": "function"
 			},
 			{
-				"inputs": [{
-					"internalType": "uint256",
-					"name": "",
-					"type": "uint256"
-				}],
+				"inputs": [],
+				"name": "getUser",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
 				"name": "items",
-				"outputs": [{
+				"outputs": [
+					{
 						"internalType": "address",
 						"name": "seller",
 						"type": "address"
@@ -350,7 +442,8 @@ $(document).ready(function () {
 				"type": "function"
 			},
 			{
-				"inputs": [{
+				"inputs": [
+					{
 						"internalType": "uint256",
 						"name": "",
 						"type": "uint256"
@@ -362,11 +455,47 @@ $(document).ready(function () {
 					}
 				],
 				"name": "members",
-				"outputs": [{
-					"internalType": "bool",
-					"name": "",
-					"type": "bool"
-				}],
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "users",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "email",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "pic",
+						"type": "string"
+					},
+					{
+						"internalType": "bool",
+						"name": "exists",
+						"type": "bool"
+					}
+				],
 				"stateMutability": "view",
 				"type": "function"
 			}
@@ -500,6 +629,27 @@ $(document).ready(function () {
 			}
 			console.log(e);
 		}
+	});
+
+	$("#create_user").click(async function async() {
+		let name = $('#name').val();
+		let email = $('#email').val();
+		let pic = $('#pic').val();
+		await contract.createUser(email, name, pic);
+		checkEvents();
+		});
+
+	$("#create_user").click(async function async() {
+		let tx = await contract.getUser();
+		console.log(tx);
+		checkEvents();
+		});
+
+	$("#get_price").click(async function async() {
+		let itemId = $('#itemID_get_price').val();
+		let tx = await contract.getPrice(itemId);
+		count = BigInt(tx._hex).toString();
+		$("#get_price").text("current Price " + count);
 	});
 
 	$("#buy").click(async function async () {
