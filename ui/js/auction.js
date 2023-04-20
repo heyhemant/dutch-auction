@@ -7,7 +7,7 @@ $(document).ready(function () {
 
 		provider = new ethers.providers.Web3Provider(window.ethereum)
 		signer = provider.getSigner();
-		let contractAddress = "0x3374e4B4D330dcC1F9540276781628490a870e93";
+		let contractAddress = "0xd7432E68aE19dC47762aC849dAeE42edD38c1B7a";
 		let abi = [
 			{
 				"anonymous": false,
@@ -73,19 +73,6 @@ $(document).ready(function () {
 				"type": "event"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "itemId",
-						"type": "uint256"
-					}
-				],
-				"name": "buy",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
 				"anonymous": false,
 				"inputs": [
 					{
@@ -97,6 +84,119 @@ $(document).ready(function () {
 				],
 				"name": "CloseBid",
 				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "itemId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "reservePrice",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "startPrice",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "auctionEndTime",
+						"type": "uint256"
+					}
+				],
+				"name": "ItemCreated",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "itemId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "bidder",
+						"type": "address"
+					}
+				],
+				"name": "SecretBidPlaced",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "uint256",
+						"name": "itemId",
+						"type": "uint256"
+					}
+				],
+				"name": "SecretbiddingCompleted",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					}
+				],
+				"name": "UserCreated",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"name": "bidders",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "itemId",
+						"type": "uint256"
+					}
+				],
+				"name": "buy",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
 			},
 			{
 				"inputs": [
@@ -160,161 +260,6 @@ $(document).ready(function () {
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "_itemId",
-						"type": "uint256"
-					}
-				],
-				"name": "inductMember",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "itemId",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "reservePrice",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "startPrice",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "auctionEndTime",
-						"type": "uint256"
-					}
-				],
-				"name": "ItemCreated",
-				"type": "event"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "itemId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "secretBid",
-						"type": "uint256"
-					}
-				],
-				"name": "placeSecretBid",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "itemId",
-						"type": "uint256"
-					},
-					{
-						"indexed": false,
-						"internalType": "address",
-						"name": "bidder",
-						"type": "address"
-					}
-				],
-				"name": "SecretBidPlaced",
-				"type": "event"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "itemId",
-						"type": "uint256"
-					}
-				],
-				"name": "SecretbiddingCompleted",
-				"type": "event"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "itemId",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "extraPrice",
-						"type": "uint256"
-					}
-				],
-				"name": "startBidding",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "string",
-						"name": "name",
-						"type": "string"
-					}
-				],
-				"name": "UserCreated",
-				"type": "event"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					},
-					{
-						"internalType": "address",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"name": "bidders",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
 						"name": "itemId",
 						"type": "uint256"
 					}
@@ -370,6 +315,19 @@ $(document).ready(function () {
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_itemId",
+						"type": "uint256"
+					}
+				],
+				"name": "inductMember",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -468,6 +426,48 @@ $(document).ready(function () {
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "itemId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "secretBid",
+						"type": "uint256"
+					}
+				],
+				"name": "placeSecretBid",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "itemId",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "extraPrice",
+						"type": "uint256"
+					}
+				],
+				"name": "startBidding",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "address",
 						"name": "",
 						"type": "address"
@@ -539,6 +539,10 @@ $(document).ready(function () {
 		contract.on("BidPlaced", (itemID, sellingPrice, bidder) => {
 			alert("Yay!! Bid Placed");
 		})
+		contract.on("UserCreated", (name) => {
+			alert("User Created");
+		})
+		
 	};
 
 	$("#connect").click(async function async () {
@@ -622,7 +626,7 @@ $(document).ready(function () {
 		try {
 			let tx = await contract.getPrice(itemId);
 			count = BigInt(tx._hex).toString();
-			$("#get_price").text("current Price " + count/convertToEThValue + "ETH");
+			$("#get_price").text("current Price " + count/convertToEThValue + " ETH");
 		} catch (e) {
 			if (e.error && e.error.message) {
 				alert(e.error.message)
@@ -639,18 +643,15 @@ $(document).ready(function () {
 		checkEvents();
 		});
 
-	$("#create_user").click(async function async() {
+	$("#get_user").click(async function async() {
 		let tx = await contract.getUser();
-		console.log(tx);
-		checkEvents();
+		$("#names").text("Name - " + tx[0]);
+		$("#emails").text("Email - " + tx[1]);
+		document.getElementById('myImage').src = tx[2];
+		document.getElementById('myImage').height = 200;
+		document.getElementById('myImage').width = 280;
 		});
 
-	$("#get_price").click(async function async() {
-		let itemId = $('#itemID_get_price').val();
-		let tx = await contract.getPrice(itemId);
-		count = BigInt(tx._hex).toString();
-		$("#get_price").text("current Price " + count);
-	});
 
 	$("#buy").click(async function async () {
 		let amount = ($('#amount').val()*convertToEThValue).toString();
