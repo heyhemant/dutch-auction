@@ -19,10 +19,19 @@ contract DutchAuctionContract{
         uint256 regTime;
         address bidWinner;
     }
+
+    struct User{
+        string email;
+        string name;
+        string pic;
+        bool exists;
+    }
+
     uint itemCount=0;
     mapping(uint256 => Item) public items;
     mapping(uint256 => mapping (address => bool)) public members;
     mapping(uint256 => mapping (address => bool)) public bidders;
+    mapping(address => User) public users;
 
     event ItemCreated(uint256 itemId, uint256 reservePrice, uint256 startPrice, uint256 auctionEndTime);
     event AuctionStarted(uint itemId, uint startPrice);
@@ -31,6 +40,7 @@ contract DutchAuctionContract{
     event AuctionCompleted(uint256 itemId, address winner);
     event BidPlaced(uint256 itemId, uint256 sellingPrice, address bidder);
     event CloseBid(uint itemId);
+    event UserCreated(string name);
     /**
      * @dev Modifier to ensure only participants can access certain features.
      * @param _itemId the id of the Item for which we are validating.
@@ -49,11 +59,22 @@ contract DutchAuctionContract{
         require (bidders[_itemId][msg.sender], "Only bidders can access this function");
         _;
     }
+
+    function createUser(string memory _email, string memory _name, string memory _pic) public{
+        require(!users[msg.sender].exists , "User already exists");
+        users[msg.sender] = User(_email, _name, _pic, true);
+    }
+
+    function getUser() public view returns (string memory, string memory, string memory){
+        require(users[msg.sender].exists , "Please register yourself");
+        return (users[msg.sender].name, users[msg.sender].email, users[msg.sender].pic);
+    }
     /**
      * @dev Allow users to enroll themselves in the auction for a certain item.
      * @param _itemId the id of the Item for which user is enrolling.
      */
     function inductMember(uint _itemId) public {
+        require(users[msg.sender].exists , "Please Register Yourself");
         require(msg.sender != items[_itemId].seller, "Seller cannot participate in auction.");
         require(block.timestamp < items[_itemId].regTime, "Reg Time is over");
         members[_itemId][msg.sender] = true;

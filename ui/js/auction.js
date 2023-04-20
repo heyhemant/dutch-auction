@@ -7,7 +7,7 @@ $(document).ready(function () {
 
 		provider = new ethers.providers.Web3Provider(window.ethereum)
 		signer = provider.getSigner();
-		let contractAddress = "0xd7432E68aE19dC47762aC849dAeE42edD38c1B7a";
+		let contractAddress = "0xB3a1655D8a2800547df66e366be50070a8C72A68";
 		let abi = [
 			{
 				"anonymous": false,

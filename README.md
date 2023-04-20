@@ -1,4 +1,4 @@
-Contract Address: 0xd7432E68aE19dC47762aC849dAeE42edD38c1B7a
+Contract Address: 0xB3a1655D8a2800547df66e366be50070a8C72A68
 
 Stage 0: A user must be inducted as a member of the Dapp with their profile. The profile must be linked to the user’s wallet and contain other information about them. Bonus points for a well-rounded profile with a profile picture and other data (stored in a decentralised manner).
 
