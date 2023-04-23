@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
-import 'hardhat/console.sol';
 /**
  * @title Dutch Auction Contract
  * @dev Allows users to auction there items in a decentralized environment, in the dutch auction format
@@ -185,6 +184,7 @@ contract DutchAuctionContract{
         uint price = getPrice(itemId);
         require(price <= msg.value, "unable to buy lack of funds");
         deposit();
+        items[itemId].bidWinner = msg.sender;
         address payable seller = payable(items[itemId].seller);
         seller.transfer(msg.value);
         emit BidPlaced(itemId, price, items[itemId].bidWinner);
