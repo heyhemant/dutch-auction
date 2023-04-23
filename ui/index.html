@@ -40,7 +40,7 @@
            <h2> Dutch Auction App Demo</h2>
         </div>
 
-    </header><!-- end header -->
+    </header>
  
 
 
@@ -50,49 +50,61 @@
             <button id="connect">connect wallet </button><br /><br />            
             <hr />
 
-            <h3>Enroll Yourself for the Auction</h3>
-
-            <!-- <input id="voter_wallet" placeholder="Voter wallet Address"><br /> -->
-
-            <button id="enroll">Enroll Me</button><br /><br />
+            <h3>Create User Profile</h3>
+            <input id="name" placeholder="Enter your name "><br />
+            <input id="email" placeholder="Enter your email "><br />
+            <input id="pic" placeholder="Enter your pic url "><br />
+            <button id="create_user"> Register Me </button><br /><br />
+            <button id="get_user"> Get User </button><br /><br />
+            <label id="names"></label><br>
+            <label id="emails"></label><br>
+            <img id="myImage" src="" width="0" height="0">
             <hr />
-            
+
             <h3>ADD ITEM</h3>
-            <input id="reservePrice" placeholder="Enter Reserve Price"><br />
-            <!-- <input id="startPrice" placeholder="Enter Start Price"><br /> -->
-            <input id="auctionDuration" placeholder="Auction Duration"><br />
-            <input id="reductionRate" placeholder="Reduction Rate"><br />
+            <input id="reservePrice" placeholder="Enter Reserve Price in ETH"><br />
+            <input id="regtime" placeholder="Enter Reg Time duration in secs"><br />
+            <input id="auctionDuration" placeholder="Auction Duration in secs"><br />
+            <input id="reductionRate" placeholder="Reduction Rate in ETH"><br />
             <button id="create_item">Add ITEM</button><br /><br />
             <hr />
 
+            <h3>Enroll Yourself for the Auction</h3>
+            <input id="enrollForItem" placeholder="Enter Item ID"><br />
+            <button id="enroll">Enroll Me</button><br /><br />
+            <hr />
 
             <h3>Get Number of members for the Secret Bidding </h3>
+            <input id="get_members_itemID" placeholder="Enter Item ID"><br />
             <button id="get_members">get Count of Members</button><br /><br />
             <hr />
 
             <h3>Place Bid for the Item Listed </h3>
-            <input id="secret_bid_amount" placeholder="Enter Your Bid"><br />
+            <input id="itemId_for_bid" placeholder="Enter Item ID"><br />
+            <input id="secret_bid_amount" placeholder="Enter Your Bid in ETH"><br />
             <button id="place_bid">Place your Bid</button><br /><br />
             <hr />
 
-            <h3>Update Item After Secret Bidding</h3> 
-            <input id="extra_amount" placeholder="Enter amount to be added"><br />
-            <button id="update_price">update</button><br /><br />
+            <h3>Start Auction for the item</h3> 
+            <input id="itemId_for_start_auction" placeholder="Enter Item ID"><br />
+            <input id="extra_amount" placeholder="Enter amount to be added in ETH"><br />
+            <button id="start_auction">Start Auction</button><br /><br />
             <hr />
 
-
             <h3>Get Item Price</h3> 
+            <input id="itemID_get_price" placeholder="Enter Item Id"><br />
             <button id="get_price">Get Price</button><br /><br />
             <hr />
 
             <h3>Buy Item</h3> 
-            <input id="amount" placeholder="Enter amount to buy"><br />
+            <input id="buy_itemId" class="placeholder" placeholder="Enter item ID"><br />
+            <input id="amount" class="placeholder" placeholder="Enter amount to buy in ETH"><br />
             <button id="buy">Buy Item</button><br /><br />
             <hr />
         </section>
     </div>
     <footer>
-    </footer><!-- #end footer area -->
+    </footer>
 </body>
 
 </html>
