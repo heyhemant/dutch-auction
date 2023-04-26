@@ -48,22 +48,39 @@ contract DutchAuctionContract{
         require(members[_itemId][msg.sender], "Only members can access this function");
         _;
     }
-
+    /**
+     * @dev Modifier to ensure only owner of the item can access certain features.
+     * @param _itemId the id of the Item for which we are validating.
+     */
     modifier onlyOwner(uint _itemId){
         require(items[_itemId].seller == msg.sender, "Only Owner can access this function");
         _;
     }
 
+    /**
+     * @dev Modifier to ensure only bidders can access certain features.
+     * @param _itemId the id of the Item for which we are validating.
+     */
     modifier onlyBidder(uint _itemId){
         require (bidders[_itemId][msg.sender], "Only bidders can access this function");
         _;
     }
 
+    /**
+     * @dev  To create a user profile.
+     * @param _email email of the user.
+     * @param _name name of the user.
+     * @param _pic picture url of user.
+     */
     function createUser(string memory _email, string memory _name, string memory _pic) public{
         require(!users[msg.sender].exists , "User already exists");
         users[msg.sender] = User(_email, _name, _pic, true);
     }
 
+    /**
+     * @dev  To get the current user profile.
+     * @return the current user profile
+     */
     function getUser() public view returns (string memory, string memory, string memory){
         require(users[msg.sender].exists , "Please register yourself");
         return (users[msg.sender].name, users[msg.sender].email, users[msg.sender].pic);
@@ -115,6 +132,10 @@ contract DutchAuctionContract{
         }
     }
 
+    /**
+     * @dev  To create a user profile.
+     * @return number of members in the auction.
+     */
     function getNoOfMembers(uint256 itemId) public view returns(uint256){
         return items[itemId].noOfMembers;
     }
