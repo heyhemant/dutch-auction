@@ -4,10 +4,11 @@
     <title>Dutch Auction App</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="js/auction.js"></script>
-    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js"
-        type="application/javascript"></script>
+    <script src="https://cdn.ethers.io/lib/ethers-5.2.umd.min.js" type="application/javascript"></script>
+
+    <link rel="stylesheet" href="css/main.css">
     <!-- Minified -->
-    
+
     <meta name="description" content="Dutch Auction App">
     <meta name="keywords" content="Dutch Auction App">
 
@@ -15,16 +16,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css"
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css"
         integrity="sha512-xX2rYBFJSj86W54Fyv1de80DWBq7zYLn2z0I9bIhQG+rxIF6XVJUpdGnsNHWRa6AvP89vtFupEPDP8eZAtu9qA=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+        crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
     <!-- CSS-->
     <!-- Google web fonts. You can get your own bundle at http://www.google.com/fonts. Don't forget to update the CSS accordingly!-->
-    <link href='http://fonts.googleapis.com/css?family=Droid+Serif|Ubuntu' rel='stylesheet' type='text/css'>
+    <!-- <link href='http://fonts.googleapis.com/css?family=Droid+Serif|Ubuntu' rel='stylesheet' type='text/css'>
 
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="js/flexslider/flexslider.css">
-    <link rel="stylesheet" href="css/basic-style.css">
+    <link rel="stylesheet" href="css/basic-style.css"> -->
 
     <!-- end CSS-->
 
@@ -33,73 +34,81 @@
 
 </head>
 
-<body>
+<body style="background-color:lightblue;">
     <header class="wrapper clearfix">
 
         <div id="banner">
-           <h2> Dutch Auction App Demo</h2>
+            <h2 class="title-text"> Dutch Auction App Demo</h2>
         </div>
 
     </header>
- 
-
 
     <div style="margin-left: 5%;">
         <section id="content">
 
-            <button id="connect">connect wallet </button><br /><br />            
+            <div class = center-coponent>
+                <button class="custom-btn btn-6" id="connect">connect wallet</button>
+            </div>
+            <br /><br />
             <hr />
 
-            <h3>Create User Profile</h3>
-            <input id="name" placeholder="Enter your name "><br />
-            <input id="email" placeholder="Enter your email "><br />
-            <input id="pic" placeholder="Enter your pic url "><br />
-            <button id="create_user"> Register Me </button><br /><br />
-            <button id="get_user"> Get User </button><br /><br />
-            <label id="names"></label><br>
-            <label id="emails"></label><br>
-            <img id="myImage" src="" width="0" height="0">
+            <div style="flex-direction: row;">
+                <div style="flex-direction: column">
+                    <h3 class="normal-text">Create User Profile</h3>
+                    <input id="name" placeholder="Enter your name "><br />
+                    <input id="email" placeholder="Enter your email "><br />
+                    <input id="pic" placeholder="Enter your pic url "><br />
+                    <button class ="custom-btn btn-8" id="create_user"> Register Me </button><br /><br />
+                </div>
+                <div style="flex-direction: column;">
+                    <button class ="custom-btn btn-8" id="get_user"> Get User </button><br /><br />
+                    <label id="names"></label><br>
+                    <label id="emails"></label><br>
+                    <img id="myImage" src="" width="0" height="0">
+                    </div>
+            </div>
+            
             <hr />
 
-            <h3>ADD ITEM</h3>
+            <h3 class="normal-text">ADD ITEM</h3>
             <input id="reservePrice" placeholder="Enter Reserve Price in ETH"><br />
             <input id="regtime" placeholder="Enter Reg Time duration in secs"><br />
             <input id="auctionDuration" placeholder="Auction Duration in secs"><br />
             <input id="reductionRate" placeholder="Reduction Rate in ETH"><br />
-            <button id="create_item">Add ITEM</button><br /><br />
+            <button class ="custom-btn btn-8" id="create_item">Add ITEM</button><br /><br />
             <hr />
 
-            <h3>Enroll Yourself for the Auction</h3>
+            <h3 class="normal-text">Enroll Yourself for the Auction</h3>
             <input id="enrollForItem" placeholder="Enter Item ID"><br />
-            <button id="enroll">Enroll Me</button><br /><br />
+            <button class ="custom-btn btn-8" id="enroll">Enroll Me</button><br /><br />
             <hr />
 
-            <h3>Get Number of members for the Secret Bidding </h3>
+            <h3 class="normal-text">Get Number of members for the Secret Bidding </h3>
             <input id="get_members_itemID" placeholder="Enter Item ID"><br />
-            <button id="get_members">get Count of Members</button><br /><br />
+            <button class ="custom-btn btn-8" id="get_members">get Count of Members</button><br /><br />
             <hr />
 
-            <h3>Place Bid for the Item Listed </h3>
+            <h3 class="normal-text">Place Bid for the Item Listed </h3>
             <input id="itemId_for_bid" placeholder="Enter Item ID"><br />
             <input id="secret_bid_amount" placeholder="Enter Your Bid in ETH"><br />
-            <button id="place_bid">Place your Bid</button><br /><br />
+            <button class ="custom-btn btn-8" id="place_bid">Place your Bid</button><br /><br />
             <hr />
 
-            <h3>Start Auction for the item</h3> 
+            <h3 class="normal-text">Start Auction for the item</h3>
             <input id="itemId_for_start_auction" placeholder="Enter Item ID"><br />
             <input id="extra_amount" placeholder="Enter amount to be added in ETH"><br />
-            <button id="start_auction">Start Auction</button><br /><br />
+            <button class ="custom-btn btn-8" id="start_auction">Start Auction</button><br /><br />
             <hr />
 
-            <h3>Get Item Price</h3> 
+            <h3 class="normal-text">Get Item Price</h3>
             <input id="itemID_get_price" placeholder="Enter Item Id"><br />
-            <button id="get_price">Get Price</button><br /><br />
+            <button class ="custom-btn btn-8" id="get_price">Get Price</button><br /><br />
             <hr />
 
-            <h3>Buy Item</h3> 
+            <h3 class="normal-text">Buy Item</h3>
             <input id="buy_itemId" class="placeholder" placeholder="Enter item ID"><br />
             <input id="amount" class="placeholder" placeholder="Enter amount to buy in ETH"><br />
-            <button id="buy">Buy Item</button><br /><br />
+            <button class ="custom-btn btn-8" id="buy">Buy Item</button><br /><br />
             <hr />
         </section>
     </div>
